@@ -38,6 +38,7 @@
       <a href="#why">Why</a>
       <a href="#concepts">Concepts</a>
       <a href="#projections">Projections</a>
+      <a href="#imports">Imports</a>
       <a href="#catalog">Catalog</a>
       <a href="#roadmap">Roadmap</a>
       <a class="nav-cta" href="https://github.com/polymodel-org/polymodel" rel="noopener">GitHub ↗</a>
@@ -302,10 +303,86 @@ order_items   → order_items.order_id → orders.id</code></pre>
       </div>
     </section>
 
+    <!-- IMPORTS / CROSS-REPO COMPOSITION -->
+    <section id="imports" class="band band--alt">
+      <div class="band-head reveal">
+        <p class="section-label">05 — Cross-repo composition</p>
+        <h2>Import models the way Go imports packages.</h2>
+        <p class="section-sub">
+          Models don't live in one file. Reference a published module by its
+          repository path; the last path segment becomes a namespace you compose
+          with — pinned to immutable version tags through the Catalog.
+        </p>
+      </div>
+
+      <div class="import-lead reveal">
+        <pre><code><span class="c">// pull in a published module by its repo path</span>
+<span class="k">import</span> <span class="s">"github.com/polymodel-org/currency"</span>
+
+<span class="k">entity</span> <span class="s">"Order"</span> {
+  <span class="k">field</span> <span class="s">"id"</span>     { type = uuid }
+  <span class="k">field</span> <span class="s">"total"</span>  { use <span class="t">currency.Amount</span> }
+}</code></pre>
+
+        <ul class="import-notes">
+          <li>
+            <span class="num">01</span>
+            <h4>Namespace from the path</h4>
+            <p>The last segment — <code>currency</code> — becomes the namespace you
+            reference. No registry lookups, no magic: the path <em>is</em> the identity.</p>
+          </li>
+          <li>
+            <span class="num">02</span>
+            <h4>Alias before the path</h4>
+            <p>Go-style aliasing resolves collisions and sharpens intent:
+            <code>import fx "…/currency"</code> → <code>fx.Amount</code>.</p>
+          </li>
+          <li>
+            <span class="num">03</span>
+            <h4>Immutable, pinned versions</h4>
+            <p>Imports resolve to semver Git tags through the Catalog. The repository
+            stays the source of truth — exactly like Go modules.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="concept-grid">
+        <article class="card reveal">
+          <h3>Group your imports</h3>
+          <p>Collect dependencies in one block. Alias any of them inline.</p>
+          <pre><code><span class="k">import</span> (
+  <span class="s">"github.com/polymodel-org/currency"</span>
+  <span class="t">geo</span> <span class="s">"github.com/polymodel-org/country"</span>
+)</code></pre>
+        </article>
+
+        <article class="card reveal">
+          <h3>Compose components &amp; entities</h3>
+          <p>Use remote components, or reference a remote entity as a field type.</p>
+          <pre><code><span class="k">entity</span> <span class="s">"Customer"</span> {
+  use <span class="t">currency.Auditable</span>
+  <span class="k">field</span> <span class="s">"country"</span> {
+    type = <span class="t">geo.Country</span>
+  }
+}</code></pre>
+        </article>
+
+        <article class="card reveal card--wide">
+          <h3>Versions resolve through the Catalog</h3>
+          <p>Import statements stay clean. Resolution pins each module to an immutable
+          semver tag and verifies its checksum — the source of truth never moves.</p>
+          <pre><code><span class="c"># polymodel.lock — resolved & checksum-verified via the Catalog</span>
+github.com/polymodel-org/currency  <span class="t">v1.2.0</span>
+github.com/polymodel-org/country   <span class="t">v0.4.0</span></code></pre>
+          <p class="drift-note">A namespace is just the tail of a repo path — so anyone, anywhere, can publish a module others compose with. <a href="#catalog">See the Catalog →</a></p>
+        </article>
+      </div>
+    </section>
+
     <!-- CATALOG -->
     <section id="catalog" class="band">
       <div class="band-head reveal">
-        <p class="section-label">05 — The Catalog</p>
+        <p class="section-label">06 — The Catalog</p>
         <h2>An open ecosystem for sharing and linking models.</h2>
         <p class="section-sub">
           A model should be definable once and reusable everywhere. The PolyModel
@@ -345,7 +422,7 @@ Orders.order_date      ↕   ExchangeRates.date</code></pre>
     <!-- ROADMAP -->
     <section id="roadmap" class="band band--alt">
       <div class="band-head reveal">
-        <p class="section-label">06 — Roadmap</p>
+        <p class="section-label">07 — Roadmap</p>
         <h2>From specification to stable ecosystem.</h2>
         <p class="section-sub">PolyModel is in the design phase. The spec is evolving and may change before v1.0.</p>
       </div>
@@ -399,6 +476,7 @@ Orders.order_date      ↕   ExchangeRates.date</code></pre>
       <a href="#why">Why</a>
       <a href="#concepts">Concepts</a>
       <a href="#projections">Projections</a>
+      <a href="#imports">Imports</a>
       <a href="#catalog">Catalog</a>
       <a href="#roadmap">Roadmap</a>
       <a href="https://github.com/polymodel-org/polymodel" rel="noopener">GitHub ↗</a>
