@@ -316,8 +316,8 @@ order_items   → order_items.order_id → orders.id</code></pre>
       </div>
 
       <div class="import-lead reveal">
-        <pre><code><span class="c">// pull in a published module by its repo path</span>
-<span class="k">import</span> <span class="s">"github.com/polymodel-org/currency"</span>
+        <pre><code><span class="c">// order.pm.hcl</span>
+<span class="k">import</span> <span class="s">"github.com/polymodel-org/currency"</span>  <span class="c">// a published module, by repo path</span>
 
 <span class="k">entity</span> <span class="s">"Order"</span> {
   <span class="k">field</span> <span class="s">"id"</span>     { type = uuid }
@@ -369,7 +369,7 @@ order_items   → order_items.order_id → orders.id</code></pre>
 
         <article class="card reveal card--wide">
           <h3>Two files: your intent, and the resolved truth</h3>
-          <p>You hand-author <code>polymodel.mod</code> in HCL — the same grammar as your
+          <p>You hand-author <code>polymodel.mod.hcl</code> in HCL — the same grammar as your
           models — declaring your module's identity and the versions it depends on. A resolver
           generates <code>polymodel.lock</code>: the exact commit and content checksum per
           module, so any machine rebuilds the same schema. The split mirrors
@@ -378,7 +378,7 @@ order_items   → order_items.order_id → orders.id</code></pre>
           <div class="modlock">
             <div class="file">
               <header>
-                <span class="file-name">polymodel.mod</span>
+                <span class="file-name">polymodel.mod.hcl</span>
                 <span class="file-tag file-tag--auth">hand-authored</span>
               </header>
               <pre><code><span class="k">module</span> <span class="s">"github.com/acme/orders"</span>
