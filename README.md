@@ -9,7 +9,7 @@ setup, not legacy Pages).
 ## Layout
 
 ```
-polymodel-dev/
+polymodel-org/
 ├── public/            # everything served to the browser
 │   ├── index.html
 │   ├── style.css

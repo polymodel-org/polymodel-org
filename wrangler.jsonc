@@ -1,7 +1,7 @@
 {
   // wrangler is run via npx (or a globally installed wrangler); no local
   // devDependency, so the editor "$schema" line is intentionally omitted.
-  "name": "polymodel-dev",
+  "name": "polymodel-org",
   "compatibility_date": "2026-06-16",
   "observability": {
     "enabled": true
