@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PolyModel — Define data models once. Generate everywhere.</title>
+  <meta name="description" content="PolyModel is an open specification for defining canonical data models independent of databases, APIs, programming languages, or storage. Project one model into PostgreSQL, Firestore, OpenAPI, GraphQL, Go, TypeScript, and more." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content="PolyModel — one canonical data model, projected everywhere" />
+  <meta property="og:description" content="Define your data model once. Generate storage schemas, transport contracts, and language types from a single source of truth." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://polymodel.org" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-head">
+    <a class="brand" href="#top" aria-label="PolyModel home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="28" height="28">
+          <circle cx="9" cy="20" r="4" fill="currentColor"/>
+          <circle cx="31" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="31" cy="20" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="31" cy="32" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M13 20 L28 9 M13 20 L28 20 M13 20 L28 31" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="brand-name">PolyModel</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
+      <span class="nav-toggle-bars" aria-hidden="true"></span>
+    </button>
+    <nav class="site-nav" id="siteNav" aria-label="Primary">
+      <a href="#why">Why</a>
+      <a href="#concepts">Concepts</a>
+      <a href="#projections">Projections</a>
+      <a href="#catalog">Catalog</a>
+      <a href="#roadmap">Roadmap</a>
+      <a class="nav-cta" href="https://github.com/polymodel-org/polymodel" rel="noopener">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="dot"></span>Open specification · design phase</p>
+        <h1>Define data models <em>once</em>.<br />Generate them <em>everywhere</em>.</h1>
+        <p class="lede">
+          PolyModel is an open specification for canonical data models — independent
+          of databases, APIs, programming languages, and storage. One definition becomes
+          your schemas, your contracts, and your types. A single source of truth.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/polymodel-org/polymodel" rel="noopener">Read the spec</a>
+          <a class="btn btn-ghost" href="#concepts">See how it works</a>
+        </div>
+        <ul class="hero-tags">
+          <li>Storage-agnostic</li>
+          <li>Transport-agnostic</li>
+          <li>Language-agnostic</li>
+          <li>Apache&nbsp;2.0</li>
+        </ul>
+      </div>
+
+      <!-- Fan-out diagram: define once → project everywhere -->
+      <div class="fanout reveal" aria-hidden="true">
+        <div class="fan-source">
+          <span class="fan-kicker">canonical</span>
+          PolyModel
+        </div>
+        <svg class="fan-wires" viewBox="0 0 120 360" preserveAspectRatio="none">
+          <path d="M0 180 C 70 180, 50 30, 120 30" />
+          <path d="M0 180 C 70 180, 50 90, 120 90" />
+          <path d="M0 180 C 70 180, 60 150, 120 150" />
+          <path d="M0 180 C 70 180, 60 210, 120 210" />
+          <path d="M0 180 C 70 180, 50 270, 120 270" />
+          <path d="M0 180 C 70 180, 50 330, 120 330" />
+        </svg>
+        <ul class="fan-targets">
+          <li style="--i:0"><span>PostgreSQL</span></li>
+          <li style="--i:1"><span>Firestore</span></li>
+          <li style="--i:2"><span>OpenAPI</span></li>
+          <li style="--i:3"><span>GraphQL</span></li>
+          <li style="--i:4"><span>Go</span></li>
+          <li style="--i:5"><span>TypeScript</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TARGETS MARQUEE -->
+    <section class="targets-strip" aria-label="Projection targets">
+      <ul>
+        <li>PostgreSQL</li><li>SQLite</li><li>Oracle</li><li>Firestore</li>
+        <li>MongoDB</li><li>OpenAPI</li><li>GraphQL</li><li>JSON&nbsp;Schema</li>
+        <li>Go&nbsp;structs</li><li>TypeScript</li><li>C#&nbsp;classes</li><li>…and&nbsp;more</li>
+      </ul>
+    </section>
+
+    <!-- WHY -->
+    <section id="why" class="band">
+      <div class="band-head reveal">
+        <p class="section-label">01 — The problem</p>
+        <h2>Every team defines the same model again and again.</h2>
+        <p class="section-sub">
+          Database schema, ORM models, DTOs, API contracts, frontend types — the
+          same shape, copied across five layers. Every copy eventually drifts.
+        </p>
+      </div>
+
+      <div class="drift-grid">
+        <div class="drift-col reveal">
+          <p class="drift-tag drift-tag--bad">Today</p>
+          <ol class="chain chain--drift">
+            <li>Database Schema</li>
+            <li>ORM Models</li>
+            <li>DTO Objects</li>
+            <li>API Contracts</li>
+            <li>Frontend Types</li>
+          </ol>
+          <p class="drift-note">Five definitions. Five chances to drift.</p>
+        </div>
+
+        <div class="drift-arrow reveal" aria-hidden="true">→</div>
+
+        <div class="drift-col reveal">
+          <p class="drift-tag drift-tag--good">With PolyModel</p>
+          <div class="chain-source">PolyModel</div>
+          <ul class="chain chain--fan">
+            <li>PostgreSQL</li>
+            <li>Firestore</li>
+            <li>OpenAPI</li>
+            <li>GraphQL</li>
+            <li>Go · TypeScript</li>
+          </ul>
+          <p class="drift-note">One definition. Generated representations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIFFERENTIATOR -->
+    <section class="band band--alt">
+      <div class="band-head reveal">
+        <p class="section-label">02 — Key differentiator</p>
+        <h2>Most tools own one layer. PolyModel sits above all of them.</h2>
+        <p class="section-sub">
+          PolyModel separates the logical model from how it's stored, transported,
+          and expressed — so the same model can look different for each target.
+        </p>
+      </div>
+
+      <div class="compare reveal">
+        <table>
+          <thead>
+            <tr><th>Project</th><th>Primary focus</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>TypeSpec</td><td>API contracts</td></tr>
+            <tr><td>OpenAPI</td><td>HTTP APIs</td></tr>
+            <tr><td>Prisma</td><td>Database schemas</td></tr>
+            <tr><td>DBML</td><td>Database modelling</td></tr>
+            <tr><td>Atlas</td><td>Database schemas &amp; migrations</td></tr>
+            <tr class="row-self"><td>PolyModel</td><td>Canonical data models</td></tr>
+          </tbody>
+        </table>
+
+        <div class="layer-stack" aria-hidden="true">
+          <div class="layer" style="--d:0"><span>Entity Model</span></div>
+          <div class="layer" style="--d:1"><span>Storage Model</span></div>
+          <div class="layer" style="--d:2"><span>Transport Model</span></div>
+          <div class="layer" style="--d:3"><span>Language Model</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCEPTS -->
+    <section id="concepts" class="band">
+      <div class="band-head reveal">
+        <p class="section-label">03 — Core concepts</p>
+        <h2>A small, honest vocabulary.</h2>
+        <p class="section-sub">
+          Entities carry identity. Components are reusable field groups. Relationships
+          associate entities. Projections map the logical model to a target.
+        </p>
+      </div>
+
+      <div class="concept-grid">
+        <article class="card reveal">
+          <h3>Entity</h3>
+          <p>An identity-bearing business object — <code>User</code>, <code>Order</code>, <code>Invoice</code>.</p>
+          <pre><code><span class="k">entity</span> <span class="s">"User"</span> {
+  <span class="k">field</span> <span class="s">"id"</span>    { type = uuid }
+  <span class="k">field</span> <span class="s">"email"</span> {
+    type   = string
+    unique = <span class="n">true</span>
+  }
+}</code></pre>
+        </article>
+
+        <article class="card reveal">
+          <h3>Component</h3>
+          <p>A reusable group of fields with no independent identity. Composition over inheritance.</p>
+          <pre><code><span class="k">component</span> <span class="s">"Auditable"</span> {
+  <span class="k">field</span> <span class="s">"createdAt"</span> { type = timestamp }
+  <span class="k">field</span> <span class="s">"updatedAt"</span> { type = timestamp }
+}</code></pre>
+        </article>
+
+        <article class="card reveal">
+          <h3>Relationship</h3>
+          <p>A logical association between entities — parents, children, hierarchies.</p>
+          <pre><code><span class="k">entity</span> <span class="s">"Order"</span> {
+  parent = <span class="t">entity.User</span>
+  <span class="k">field</span> <span class="s">"id"</span>        { type = uuid }
+  <span class="k">field</span> <span class="s">"createdAt"</span> { type = timestamp }
+}</code></pre>
+        </article>
+
+        <article class="card reveal">
+          <h3>Composition</h3>
+          <p>Pull components into entities — much like Go struct embedding.</p>
+          <pre><code><span class="k">entity</span> <span class="s">"Invoice"</span> {
+  use <span class="t">component.Auditable</span>
+  <span class="k">field</span> <span class="s">"total"</span> {
+    use <span class="t">component.CurrencyAmount</span>
+  }
+}</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJECTIONS -->
+    <section id="projections" class="band band--alt">
+      <div class="band-head reveal">
+        <p class="section-label">04 — One model, many shapes</p>
+        <h2>Hierarchy is a logical concern, not a storage one.</h2>
+        <p class="section-sub">
+          The same <code>User → Order → OrderItem</code> model projects into nested
+          documents, flat relational tables, or rich DTOs — without touching the source.
+        </p>
+      </div>
+
+      <div class="proj-source reveal">
+        <pre><code><span class="k">entity</span> <span class="s">"User"</span>      { <span class="k">field</span> <span class="s">"id"</span> { type = uuid } }
+<span class="k">entity</span> <span class="s">"Order"</span>     { parent = <span class="t">entity.User</span>  <span class="k">field</span> <span class="s">"createdAt"</span> { type = timestamp } }
+<span class="k">entity</span> <span class="s">"OrderItem"</span> { parent = <span class="t">entity.Order</span> <span class="k">field</span> <span class="s">"quantity"</span>  { type = int } }</code></pre>
+      </div>
+
+      <div class="proj-grid">
+        <article class="proj-card reveal">
+          <header><span class="proj-badge proj-badge--doc">Firestore</span><span>nested documents</span></header>
+          <pre><code>users/{userId}
+  orders/{orderId}
+    items/{itemId}</code></pre>
+        </article>
+
+        <article class="proj-card reveal">
+          <header><span class="proj-badge proj-badge--sql">PostgreSQL</span><span>flat tables + FKs</span></header>
+          <pre><code>users
+orders        → orders.user_id → users.id
+order_items   → order_items.order_id → orders.id</code></pre>
+        </article>
+
+        <article class="proj-card reveal">
+          <header><span class="proj-badge proj-badge--api">OpenAPI</span><span>transport contract</span></header>
+          <pre><code>User:
+  type: object
+  properties:
+    id:    { type: string }
+    email: { type: string }</code></pre>
+        </article>
+
+        <article class="proj-card reveal">
+          <header><span class="proj-badge proj-badge--gql">GraphQL</span><span>typed schema</span></header>
+          <pre><code>type User {
+  id: ID!
+  email: String!
+}</code></pre>
+        </article>
+
+        <article class="proj-card reveal">
+          <header><span class="proj-badge proj-badge--go">Go</span><span>structs</span></header>
+          <pre><code>type User struct {
+    ID    string
+    Email string
+}</code></pre>
+        </article>
+
+        <article class="proj-card reveal">
+          <header><span class="proj-badge proj-badge--ts">TypeScript</span><span>DTO interfaces</span></header>
+          <pre><code>interface UserDto {
+  id: string;
+  email: string;
+  orders: OrderDto[];
+}</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <!-- CATALOG -->
+    <section id="catalog" class="band">
+      <div class="band-head reveal">
+        <p class="section-label">05 — The Catalog</p>
+        <h2>An open ecosystem for sharing and linking models.</h2>
+        <p class="section-sub">
+          A model should be definable once and reusable everywhere. The PolyModel
+          Catalog is a Git-native registry — repositories stay the source of truth.
+        </p>
+      </div>
+
+      <div class="catalog-grid">
+        <article class="card reveal">
+          <h3>Git-native, like Go modules</h3>
+          <p>Modules are published as Git repositories, versioned with immutable semver tags.</p>
+          <pre><code><span class="c"># Git repo + version tags = a published module</span>
+github.com/polymodel-org/currency  <span class="t">v1.0.0</span>
+github.com/polymodel-org/country   <span class="t">v0.2.0</span>
+github.com/acme/payments           <span class="t">v0.1.0</span></code></pre>
+        </article>
+
+        <article class="card reveal">
+          <h3>Canonical entities</h3>
+          <p>Reusable reference entities become shared semantics across organizations.</p>
+          <ul class="pill-list">
+            <li>Currency</li><li>Country</li><li>Address</li>
+            <li>Person</li><li>Company</li><li>ExchangeRate</li>
+          </ul>
+        </article>
+
+        <article class="card reveal card--wide">
+          <h3>Automatic dataset linking</h3>
+          <p>When datasets map to the same canonical entities, tooling can infer joins, enrichments, and navigation — no shared storage required.</p>
+          <pre><code>Orders.currency_code   ↕   ExchangeRates.currency_code
+Orders.order_date      ↕   ExchangeRates.date</code></pre>
+          <p class="drift-note">The network effect comes from shared <em>semantics</em>, not shared storage.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap" class="band band--alt">
+      <div class="band-head reveal">
+        <p class="section-label">06 — Roadmap</p>
+        <h2>From specification to stable ecosystem.</h2>
+        <p class="section-sub">PolyModel is in the design phase. The spec is evolving and may change before v1.0.</p>
+      </div>
+
+      <ol class="timeline">
+        <li class="reveal"><span class="ver">v0.1</span><div><h4>Foundations</h4><p>Entities, fields, relationships, hierarchies, HCL syntax, the specification document, example models.</p></div></li>
+        <li class="reveal"><span class="ver">v0.2</span><div><h4>First generators</h4><p>PostgreSQL, SQLite, Go, and TypeScript generators.</p></div></li>
+        <li class="reveal"><span class="ver">v0.3</span><div><h4>Documents &amp; transport</h4><p>Firestore &amp; MongoDB projections, JSON Schema and OpenAPI generators.</p></div></li>
+        <li class="reveal"><span class="ver">v0.4</span><div><h4>Evolution</h4><p>Migration specification, index definitions, constraints, validation rules.</p></div></li>
+        <li class="reveal"><span class="ver">v0.5</span><div><h4>Tooling</h4><p>GraphQL &amp; TypeSpec generators, VS Code extension, formatter.</p></div></li>
+        <li class="reveal"><span class="ver">v1.0</span><div><h4>Stable</h4><p>Stable spec, compliance suite, reference implementations, community governance.</p></div></li>
+      </ol>
+    </section>
+
+    <!-- NON-GOALS -->
+    <section class="band band--tight">
+      <div class="nongoals reveal">
+        <div>
+          <p class="section-label">What PolyModel is not</p>
+          <p class="section-sub">PolyModel defines the specification. Implementations build on top of it.</p>
+        </div>
+        <ul class="strike-list">
+          <li>An ORM</li>
+          <li>A database</li>
+          <li>An API framework</li>
+          <li>A migration engine</li>
+          <li>A code generator implementation</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="reveal">
+        <h2>Define the model once.<br />Let everything else follow.</h2>
+        <p>PolyModel is an open specification. Feedback, ideas, and contributions are welcome.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/polymodel-org/polymodel" rel="noopener">Explore on GitHub ↗</a>
+          <a class="btn btn-ghost" href="https://polymodel.org" rel="noopener">polymodel.org</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="foot-brand">
+      <span class="brand-name">PolyModel</span>
+      <p>Canonical data models. One source of truth.</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="#why">Why</a>
+      <a href="#concepts">Concepts</a>
+      <a href="#projections">Projections</a>
+      <a href="#catalog">Catalog</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="https://github.com/polymodel-org/polymodel" rel="noopener">GitHub ↗</a>
+    </nav>
+    <p class="foot-legal">Apache License 2.0 · Currently in design phase</p>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>
