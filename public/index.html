@@ -369,10 +369,11 @@ order_items   → order_items.order_id → orders.id</code></pre>
 
         <article class="card reveal card--wide">
           <h3>Two files: your intent, and the resolved truth</h3>
-          <p>You hand-author <code>polymodel.mod</code> — your module's identity and the
-          versions it depends on. A resolver generates <code>polymodel.lock</code> —
-          the exact commit and content checksum for every module, so any machine rebuilds
-          the same schema. The split mirrors <code>go.mod</code> and <code>go.sum</code>.</p>
+          <p>You hand-author <code>polymodel.mod</code> in HCL — the same grammar as your
+          models — declaring your module's identity and the versions it depends on. A resolver
+          generates <code>polymodel.lock</code>: the exact commit and content checksum per
+          module, so any machine rebuilds the same schema. The split mirrors
+          <code>go.mod</code> and <code>go.sum</code>.</p>
 
           <div class="modlock">
             <div class="file">
@@ -385,7 +386,12 @@ order_items   → order_items.order_id → orders.id</code></pre>
 <span class="k">polymodel</span> = <span class="s">"0.1"</span>
 
 <span class="k">require</span> <span class="s">"github.com/polymodel-org/currency"</span> { version = <span class="s">"v1.2.0"</span> }
-<span class="k">require</span> <span class="s">"github.com/polymodel-org/country"</span>  { version = <span class="s">"v0.4.0"</span> }</code></pre>
+
+<span class="c"># local dev override — co-located, never a stray directive elsewhere</span>
+<span class="k">require</span> <span class="s">"github.com/polymodel-org/country"</span> {
+  version = <span class="s">"v0.4.0"</span>
+  replace = <span class="s">"../country"</span>
+}</code></pre>
             </div>
 
             <div class="file">
@@ -395,11 +401,11 @@ order_items   → order_items.order_id → orders.id</code></pre>
               </header>
               <pre><code><span class="c"># resolved &amp; checksum-verified via the Catalog</span>
 github.com/polymodel-org/currency  <span class="t">v1.2.0  commit:9f3a1c7  h1:sha256-Wqf3…aQ=</span>
-github.com/polymodel-org/country   <span class="t">v0.4.0  commit:2b7e0d4  h1:sha256-Lm8x…Tn=</span></code></pre>
+github.com/polymodel-org/country   <span class="t">v0.4.0  → ../country  (local replace)</span></code></pre>
             </div>
           </div>
 
-          <p class="drift-note">The commit pins <em>what</em> you resolved; the content hash proves <em>integrity</em> independent of git. A namespace is just the tail of a repo path — so anyone, anywhere, can publish a module others compose with. <a href="#catalog">See the Catalog →</a></p>
+          <p class="drift-note">Need a local checkout while developing? <code>replace</code> rides on the <code>require</code> itself — co-located and impossible to miss, unlike go.mod's free-floating <code>replace</code> directives — and the lock reflects it. The commit pins <em>what</em> resolved; the content hash proves <em>integrity</em> independent of git. <a href="#catalog">See the Catalog →</a></p>
         </article>
       </div>
     </section>
